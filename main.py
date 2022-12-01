@@ -1,16 +1,37 @@
-# This is a sample Python script.
+class Product:
+    def __init__(self, name: str, price: int) -> None:
+        self.name = name
+        self.price = price
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    def product_show(self):
+        return f"{self.name} price is {self.price}$"
+
+    def all_price(self, quantity: int):
+        return self.price * quantity
+
+class ShoppingCart:
+    def __init__(self) -> None:
+        self.products = []
+        self.quantity = []
+
+    def add_product(self, product: Product, quantity):
+        self.products.append(product)
+        self.quantity.append(quantity)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(name )    # Press Ctrl+F8 to toggle the breakpoint.
+    def get_total(self):
+        total = 0
+        for (i) in range(0, len(self.products)):
+            total += self.products[i].all_price(self.quantity[i])
+        return total
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+banana = Product("Banana", 10)
+orange = Product("Orange", 5)
+# print(banana.product_show())
+# print(banana.all_price())
+# print(orange.product_show())
+# print(orange.all_price())
+cart = ShoppingCart()
+cart.add_product(banana, 2)
+cart.add_product(orange, 10)
+print(cart.get_total())
