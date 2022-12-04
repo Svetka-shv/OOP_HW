@@ -7,7 +7,7 @@ class Product:
         return f"{self.name} price is {self.price}$"
 
     def all_price(self, quantity: int):
-        return self.price * quantity
+        return round((self.price * quantity), 2)
 
 class ShoppingCart:
     def __init__(self) -> None:
@@ -18,11 +18,11 @@ class ShoppingCart:
         self.products.append(product)
         self.quantity.append(quantity)
 
-
     def get_total(self):
+        zipper = list(zip(self.products, self.quantity))
         total = 0
-        for (i) in range(0, len(self.products)):
-            total += self.products[i].all_price(self.quantity[i])
+        for i in range(len(zipper)):
+            total += (zipper[i][0].all_price(zipper[i][1]))
         return total
 
 banana = Product("Banana", 10)
