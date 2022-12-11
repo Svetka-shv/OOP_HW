@@ -7,6 +7,8 @@ class Product:
         return f"{self.name} price is {self.price}$"
 
     def __eq__(self, other):
+        if not isinstance(other, Product):
+            return False
         return (self.name, self.price) == (other.name, other.price)
 
     def str(self) -> str:
@@ -43,15 +45,19 @@ class ShoppingCart:
                 cart.add_product(product, quantity)
         return cart
 
+    def __repr__(self):
+        return f"{list(zip(self.products, self.quantity))}"
+
+    def __eq__(self, other):
+        if not isinstance(other, ShoppingCart):
+            return False
+        return (self.products, self.quantity) == (other.products, other.quantity)
+
     def get_total(self):
         total = 0
         for product, quantity in zip(self.products, self.quantity):
-            total += product.get_total(quantity)
+            total += product.get_total(round(quantity, 2))
         return total
-
-    def lh(self):
-        zipper = list(zip(self.products, self.quantity))
-        return zipper
 
     def float(self) -> float:
         return self.get_total()
@@ -75,7 +81,5 @@ cart2.add_product(orange, 10)
 cart2.add_product(tomato, 8)
 
 cart3 = cart + cart2
-print(cart.lh())
-print(cart2.lh())
-print(cart3.lh())
+print(repr(cart3))
 print(cart3.get_total())
