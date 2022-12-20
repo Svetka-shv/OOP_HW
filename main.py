@@ -49,7 +49,7 @@ class ShoppingCart:
         return f"{list(zip(self.products, self.quantity))}"
 
     def __eq__(self, other):
-        if not isinstance(other, ShoppingCart):
+        if not isinstance(ShoppingCart, other):
             return False
         return (self.products, self.quantity) == (other.products, other.quantity)
 
